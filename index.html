@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Share My Location</title>
+    <title>Pet Profile - {{petName}}</title>
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -13,11 +13,6 @@
 
         h1 {
             color: #333;
-        }
-
-        #locationLink {
-            display: none; /* Initially hide the link */
-            margin-top: 20px;
         }
 
         #shareLocationButton {
@@ -33,84 +28,55 @@
             background-color: #45a049;
         }
 
-        .share-options {
+        #locationLink {
+            display: none; /* Initially hide the link */
             margin-top: 20px;
         }
 
-        .share-option {
-            display: inline-block;
-            margin: 10px;
-            padding: 10px 20px;
-            background-color: #0078D4;
-            color: white;
-            border: none;
-            cursor: pointer;
-        }
-
-        .share-option:hover {
-            background-color: #005a8e;
+        #locationLink a {
+            display: block;
+            margin-top: 10px;
         }
     </style>
 </head>
 <body>
 
-    <h1>Share Your Location</h1>
+    <h1>{{petName}}'s Profile</h1>
+    <p><strong>Owner:</strong> {{ownerName}}</p>
+    <img src="{{petPhoto}}" alt="{{petName}}" style="max-width: 100%; height: auto;">
+    <p>{{petDescription}}</p>
+
     <button id="shareLocationButton">Share Location</button>
 
     <div id="locationLink">
-        <p>Click the link below to share your location:</p>
-        <div class="share-options">
-            <button id="emailButton" class="share-option">Send via Email</button>
-            <button id="whatsappButton" class="share-option">Send via WhatsApp</button>
-        </div>
+        <p>Click below to share the location:</p>
+        <a id="whatsappLink" href="#" target="_blank">Send via WhatsApp</a>
+        <a id="emailLink" href="#" target="_blank">Send via Email</a>
     </div>
 
     <script>
         document.getElementById("shareLocationButton").addEventListener("click", function() {
-            console.log("Button clicked!"); // Log to see if button click is working
+            // Get the pet's location and owner's contact info
+            const latitude = {{latitude}};  // Hardcoded for now
+            const longitude = {{longitude}};
+            const petName = "{{petName}}"; // Hardcoded for now
+            const ownerName = "{{ownerName}}"; // Hardcoded for now
+            const ownerEmail = "{{ownerEmail}}"; // Hardcoded for now
+            const ownerWhatsapp = "{{ownerWhatsapp}}"; // Hardcoded for now
 
-            if (navigator.geolocation) {
-                // Get the current position of the user
-                navigator.geolocation.getCurrentPosition(function(position) {
-                    console.log("Location retrieved: ", position); // Log the location data
+            // Construct the location message
+            const locationMessage = `Hello, I am sharing the location of ${petName}. My current location is: Latitude: ${latitude}, Longitude: ${longitude}. You can view it on Google Maps here: https://www.google.com/maps?q=${latitude},${longitude}`;
 
-                    const latitude = position.coords.latitude;
-                    const longitude = position.coords.longitude;
+            // Generate the WhatsApp and email links
+            const whatsappLink = `https://wa.me/${ownerWhatsapp}?text=${encodeURIComponent(locationMessage)}`;
+            const emailLink = `mailto:${ownerEmail}?subject=Location of ${petName}&body=${encodeURIComponent(locationMessage)}`;
 
-                    // Construct the message with location details
-                    const locationMessage = `Hello, I am sharing my location with you. 
-                    My current location is:
-                    Latitude: ${latitude}
-                    Longitude: ${longitude}
-                    You can view it on Google Maps using this link: https://www.google.com/maps?q=${latitude},${longitude}`;
+            // Set the href attributes of the links dynamically
+            document.getElementById("whatsappLink").href = whatsappLink;
+            document.getElementById("emailLink").href = emailLink;
 
-                    // Email link
-                    const emailLink = `mailto:example@example.com?subject=My Current Location&body=${encodeURIComponent(locationMessage)}`;
-
-                    // WhatsApp link
-                    const whatsappLink = `https://wa.me/?text=${encodeURIComponent(locationMessage)}`;
-
-                    // Show the links and buttons
-                    document.getElementById("emailButton").addEventListener("click", function() {
-                        window.location.href = emailLink; // Open the email client
-                    });
-
-                    document.getElementById("whatsappButton").addEventListener("click", function() {
-                        window.open(whatsappLink, "_blank"); // Open WhatsApp in a new tab or app
-                    });
-
-                    // Show the location sharing options
-                    const locationLinkDiv = document.getElementById("locationLink");
-                    locationLinkDiv.style.display = 'block'; // Show the sharing options
-
-                }, function(error) {
-                    console.error('Error retrieving location:', error); // Log error if geolocation fails
-                    alert('Unable to retrieve location: ' + error.message);
-                });
-            } else {
-                console.error('Geolocation is not supported by this browser.'); // Log if geolocation is not supported
-                alert('Geolocation is not supported by this browser.');
-            }
+            // Show the links
+            document.getElementById("locationLink").style.display = 'block';  // Show the sharing options
         });
     </script>
 
