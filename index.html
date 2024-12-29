@@ -32,6 +32,24 @@
         #shareLocationButton:hover {
             background-color: #45a049;
         }
+
+        .share-options {
+            margin-top: 20px;
+        }
+
+        .share-option {
+            display: inline-block;
+            margin: 10px;
+            padding: 10px 20px;
+            background-color: #0078D4;
+            color: white;
+            border: none;
+            cursor: pointer;
+        }
+
+        .share-option:hover {
+            background-color: #005a8e;
+        }
     </style>
 </head>
 <body>
@@ -40,8 +58,11 @@
     <button id="shareLocationButton">Share Location</button>
 
     <div id="locationLink">
-        <p>Click the link below to send your location via email:</p>
-        <a id="emailLink" href="#" target="_blank">Send Email</a>
+        <p>Click the link below to share your location:</p>
+        <div class="share-options">
+            <button id="emailButton" class="share-option">Send via Email</button>
+            <button id="whatsappButton" class="share-option">Send via WhatsApp</button>
+        </div>
     </div>
 
     <script>
@@ -56,25 +77,32 @@
                     const latitude = position.coords.latitude;
                     const longitude = position.coords.longitude;
 
-                    // Construct the email body content
-                    const emailBody = `Hello, I am sharing my location with you. 
+                    // Construct the message with location details
+                    const locationMessage = `Hello, I am sharing my location with you. 
                     My current location is:
                     Latitude: ${latitude}
                     Longitude: ${longitude}
                     You can view it on Google Maps using this link: https://www.google.com/maps?q=${latitude},${longitude}`;
 
-                    // Construct the mailto link with a preset email and the location details
-                    const emailLink = document.getElementById("emailLink");
-                    const presetEmail = "example@example.com"; // Replace with the email address to receive the location
+                    // Email link
+                    const emailLink = `mailto:example@example.com?subject=My Current Location&body=${encodeURIComponent(locationMessage)}`;
 
-                    const mailtoUrl = `mailto:${presetEmail}?subject=My Current Location&body=${encodeURIComponent(emailBody)}`;
+                    // WhatsApp link
+                    const whatsappLink = `https://wa.me/?text=${encodeURIComponent(locationMessage)}`;
 
-                    // Set the href to the mailto URL
-                    emailLink.href = mailtoUrl;
+                    // Show the links and buttons
+                    document.getElementById("emailButton").addEventListener("click", function() {
+                        window.location.href = emailLink; // Open the email client
+                    });
 
-                    // Show the link
+                    document.getElementById("whatsappButton").addEventListener("click", function() {
+                        window.open(whatsappLink, "_blank"); // Open WhatsApp in a new tab or app
+                    });
+
+                    // Show the location sharing options
                     const locationLinkDiv = document.getElementById("locationLink");
-                    locationLinkDiv.style.display = 'block'; // Show the link
+                    locationLinkDiv.style.display = 'block'; // Show the sharing options
+
                 }, function(error) {
                     console.error('Error retrieving location:', error); // Log error if geolocation fails
                     alert('Unable to retrieve location: ' + error.message);
