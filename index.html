@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Pet Profile - {{petName}}</title>
+    <title>Pet Profile - Fido</title>
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -41,10 +41,10 @@
 </head>
 <body>
 
-    <h1>{{petName}}'s Profile</h1>
-    <p><strong>Owner:</strong> {{ownerName}}</p>
-    <img src="{{petPhoto}}" alt="{{petName}}" style="max-width: 100%; height: auto;">
-    <p>{{petDescription}}</p>
+    <h1>Fido's Profile</h1>
+    <p><strong>Owner:</strong> John Doe</p>
+    <img src="fido.jpg" alt="Fido" style="max-width: 100%; height: auto;">
+    <p>Fido is a playful and energetic dog who loves running around the park.</p>
 
     <button id="shareLocationButton">Share Location</button>
 
@@ -57,28 +57,7 @@
     <script>
         document.getElementById("shareLocationButton").addEventListener("click", function() {
             // Get the pet's location and owner's contact info
-            const latitude = {{latitude}};  // Hardcoded for now
-            const longitude = {{longitude}};
-            const petName = "{{petName}}"; // Hardcoded for now
-            const ownerName = "{{ownerName}}"; // Hardcoded for now
-            const ownerEmail = "{{ownerEmail}}"; // Hardcoded for now
-            const ownerWhatsapp = "{{ownerWhatsapp}}"; // Hardcoded for now
-
-            // Construct the location message
-            const locationMessage = `Hello, I am sharing the location of ${petName}. My current location is: Latitude: ${latitude}, Longitude: ${longitude}. You can view it on Google Maps here: https://www.google.com/maps?q=${latitude},${longitude}`;
-
-            // Generate the WhatsApp and email links
-            const whatsappLink = `https://wa.me/${ownerWhatsapp}?text=${encodeURIComponent(locationMessage)}`;
-            const emailLink = `mailto:${ownerEmail}?subject=Location of ${petName}&body=${encodeURIComponent(locationMessage)}`;
-
-            // Set the href attributes of the links dynamically
-            document.getElementById("whatsappLink").href = whatsappLink;
-            document.getElementById("emailLink").href = emailLink;
-
-            // Show the links
-            document.getElementById("locationLink").style.display = 'block';  // Show the sharing options
-        });
-    </script>
-
-</body>
-</html>
+            const latitude = 3.139;  // Hardcoded for now
+            const longitude = 101.6869;
+            const petName = "Fido"; // Hardcoded for now
+  
