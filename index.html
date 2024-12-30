@@ -76,4 +76,52 @@
 
             // Generate the WhatsApp and email links
             const whatsappLink = `https://wa.me/${ownerWhatsapp}?text=${encodeURIComponent(locationMessage)}`;
-   
+            const emailLink = `mailto:${ownerEmail}?subject=Location of ${petName}&body=${encodeURIComponent(locationMessage)}`;
+
+            // Set the href attributes of the links dynamically
+            document.getElementById("whatsappLink").href = whatsappLink;
+            document.getElementById("emailLink").href = emailLink;
+
+            // Show the links
+            document.getElementById("locationLink").style.display = 'block';  // Show the sharing options
+            document.getElementById("shareEmailButton").style.display = 'inline-block'; // Show email button
+            document.getElementById("shareWhatsappButton").style.display = 'inline-block'; // Show WhatsApp button
+        });
+
+        document.getElementById("shareEmailButton").addEventListener("click", function() {
+            // Get the pet's location and owner's contact info
+            const latitude = 3.139;  // Hardcoded for now
+            const longitude = 101.6869;
+            const petName = "Fido"; // Hardcoded for now
+            const ownerEmail = "john@example.com"; // Hardcoded for now
+
+            // Construct the location message
+            const locationMessage = `Hello, I am sharing the location of ${petName}. My current location is: Latitude: ${latitude}, Longitude: ${longitude}. You can view it on Google Maps here: https://www.google.com/maps?q=${latitude},${longitude}`;
+
+            // Generate the email link
+            const emailLink = `mailto:${ownerEmail}?subject=Location of ${petName}&body=${encodeURIComponent(locationMessage)}`;
+
+            // Redirect to email client with the message
+            window.location.href = emailLink;
+        });
+
+        document.getElementById("shareWhatsappButton").addEventListener("click", function() {
+            // Get the pet's location and owner's contact info
+            const latitude = 3.139;  // Hardcoded for now
+            const longitude = 101.6869;
+            const petName = "Fido"; // Hardcoded for now
+            const ownerWhatsapp = "60126163775"; // Hardcoded for now
+
+            // Construct the location message
+            const locationMessage = `Hello, I am sharing the location of ${petName}. My current location is: Latitude: ${latitude}, Longitude: ${longitude}. You can view it on Google Maps here: https://www.google.com/maps?q=${latitude},${longitude}`;
+
+            // Generate the WhatsApp link
+            const whatsappLink = `https://wa.me/${ownerWhatsapp}?text=${encodeURIComponent(locationMessage)}`;
+
+            // Redirect to WhatsApp with the message
+            window.location.href = whatsappLink;
+        });
+    </script>
+
+</body>
+</html>
