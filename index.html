@@ -15,16 +15,21 @@
             color: #333;
         }
 
-        #shareLocationButton {
+        #shareLocationButton,
+        #shareEmailButton,
+        #shareWhatsappButton {
             padding: 10px 20px;
             font-size: 16px;
             background-color: #4CAF50;
             color: white;
             border: none;
             cursor: pointer;
+            margin-top: 10px;
         }
 
-        #shareLocationButton:hover {
+        #shareLocationButton:hover,
+        #shareEmailButton:hover,
+        #shareWhatsappButton:hover {
             background-color: #45a049;
         }
 
@@ -47,6 +52,8 @@
     <p>Fido is a playful and energetic dog who loves running around the park.</p>
 
     <button id="shareLocationButton">Share Location</button>
+    <button id="shareEmailButton" style="display:none;">Share via Email</button>
+    <button id="shareWhatsappButton" style="display:none;">Share via WhatsApp</button>
 
     <div id="locationLink">
         <p>Click below to share the location:</p>
@@ -60,4 +67,13 @@
             const latitude = 3.139;  // Hardcoded for now
             const longitude = 101.6869;
             const petName = "Fido"; // Hardcoded for now
-  
+            const ownerName = "John Doe"; // Hardcoded for now
+            const ownerEmail = "john@example.com"; // Hardcoded for now
+            const ownerWhatsapp = "60126163775"; // Hardcoded for now
+
+            // Construct the location message
+            const locationMessage = `Hello, I am sharing the location of ${petName}. My current location is: Latitude: ${latitude}, Longitude: ${longitude}. You can view it on Google Maps here: https://www.google.com/maps?q=${latitude},${longitude}`;
+
+            // Generate the WhatsApp and email links
+            const whatsappLink = `https://wa.me/${ownerWhatsapp}?text=${encodeURIComponent(locationMessage)}`;
+   
